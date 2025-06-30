@@ -1,0 +1,221 @@
+table Ventas
+	lineageTag: 68c58120-1847-4ec5-a253-b55a2d047d71
+
+	measure VentasTotales = ```
+			SUM(Ventas[total])
+			
+			```
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: ec4c8fe8-b25d-47a9-8df7-7a012bd311dd
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-US"}
+
+	measure SucursalConMasVentas =
+			
+			CALCULATE(
+			    MAXX(
+			        SUMMARIZE(Ventas, Sucursales[nombre_sucursal], "TotalSucursal", SUM(Ventas[total])),
+			        [TotalSucursal]
+			    )
+			)
+		lineageTag: b0d9e161-1f94-461f-8755-09588e052f60
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure SucursalConMenosVentasNombre = ```
+			
+			VAR TablaVentasPorSucursal = 
+			    SUMMARIZE(
+			        Ventas,
+			        Sucursales[id_sucursal],
+			        Sucursales[nombre_sucursal],
+			        "TotalSucursal", SUM(Ventas[total])
+			    )
+			VAR MinVentas = MINX(TablaVentasPorSucursal, [TotalSucursal])
+			VAR Resultado = 
+			    FILTER(TablaVentasPorSucursal, [TotalSucursal] = MinVentas)
+			RETURN
+			    CONCATENATEX(Resultado, Sucursales[nombre_sucursal], ", ")
+			
+			
+			```
+		lineageTag: 0dd5d8b1-046c-4886-8a67-9e1f00b9fd59
+
+	measure Medida
+		lineageTag: b9dcc362-3c6d-4ee3-b250-b69d6e54c540
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	measure Ventas_SucursalMenosVentas = ```
+			
+			VAR SucursalID = 
+			    MINX(
+			        FILTER(
+			            SUMMARIZE(
+			                Ventas,
+			                Sucursales[id_sucursal],
+			                "TotalSucursal", SUM(Ventas[total])
+			            ),
+			            [TotalSucursal] = MINX(
+			                SUMMARIZE(
+			                    Ventas,
+			                    Sucursales[id_sucursal],
+			                    "TotalSucursal", SUM(Ventas[total])
+			                ),
+			                [TotalSucursal]
+			            )
+			        ),
+			        Sucursales[id_sucursal]
+			    )
+			RETURN
+			    CALCULATE(
+			        SUM(Ventas[total]),
+			        Sucursales[id_sucursal] = SucursalID
+			    )
+			
+			```
+		lineageTag: ce5967fa-6cb3-4fb6-93c2-7a6b945ab08b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Ventas_SucursalFija =
+			
+			CALCULATE(
+			    SUM(Ventas[total]),
+			    Sucursales[id_sucursal] = 123
+			)
+		lineageTag: 4088c92e-225f-4a69-bb53-f710c3db0e20
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Ventas_Sucursal_sanbenito = ```
+			
+			CALCULATE(
+			    SUM(Ventas[total]),
+			    Sucursales[id_sucursal] = 1
+			)
+			
+			```
+		lineageTag: 407e9dc3-5360-450e-89ca-17e71546c2c6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Ventas_Sucursal_santa_tecla = ```
+			
+			CALCULATE(
+			    SUM(Ventas[total]),
+			    Sucursales[id_sucursal] = 2
+			)
+			
+			```
+		lineageTag: 011f047d-11d7-4ead-a414-a24f6523b203
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Ventas_Sucursal_Escalon = ```
+			
+			CALCULATE(
+			    SUM(Ventas[total]),
+			    Sucursales[id_sucursal] = 3
+			)
+			
+			```
+		lineageTag: 8952f4cc-1ddb-4e9a-9210-d64a119bdc4d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column id_venta
+		dataType: int64
+		formatString: 0
+		lineageTag: b2f18684-45af-4fe4-8c72-dd55c462d35d
+		summarizeBy: none
+		sourceColumn: id_venta
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: string
+		lineageTag: e2a3f8c2-985d-4ffc-9f94-b0139dab62ac
+		summarizeBy: none
+		sourceColumn: fecha
+
+		annotation SummarizationSetBy = Automatic
+
+	column hora
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: fc18a61d-50ca-47b6-8d1f-9b7f320df05a
+		summarizeBy: none
+		sourceColumn: hora
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column id_cliente
+		dataType: int64
+		formatString: 0
+		lineageTag: ea712920-6cd6-43b3-b6d2-bec15c725bdf
+		summarizeBy: none
+		sourceColumn: id_cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_sucursal
+		dataType: int64
+		formatString: 0
+		lineageTag: ffc792e5-0c71-4a5a-940e-53f6f5b42b5e
+		summarizeBy: none
+		sourceColumn: id_sucursal
+
+		annotation SummarizationSetBy = Automatic
+
+	column total
+		dataType: double
+		lineageTag: db8cd5e3-229d-46ca-acb9-75abe182fe0f
+		summarizeBy: sum
+		sourceColumn: total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column id_promocion
+		dataType: int64
+		formatString: 0
+		lineageTag: de2ef4f9-9ec2-405c-bf08-76f57f775482
+		summarizeBy: none
+		sourceColumn: id_promocion
+
+		annotation SummarizationSetBy = Automatic
+
+	column AnioVenta = ```
+			YEAR(Ventas[fecha])
+			
+			```
+		formatString: 0
+		lineageTag: 52326d9c-b5c4-4ae9-a241-4880890e9bc4
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column MesVenta = MONTH(Ventas[fecha])
+		formatString: 0
+		lineageTag: 934318c9-c50d-4c62-92a8-88517003ce9e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Ventas = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\natal_5bvjz7f\Downloads\Datos_Restaurante_Ejemplo_6meses.xlsx"), null, true),
+				    Ventas_Sheet = Source{[Item="Ventas",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Ventas_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"id_venta", Int64.Type}, {"fecha", type any}, {"hora", type time}, {"id_cliente", Int64.Type}, {"id_sucursal", Int64.Type}, {"total", type number}, {"id_promocion", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

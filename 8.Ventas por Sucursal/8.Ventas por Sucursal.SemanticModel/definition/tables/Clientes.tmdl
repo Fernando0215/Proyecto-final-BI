@@ -1,0 +1,58 @@
+table Clientes
+	lineageTag: b350d0df-4be3-4543-902d-e6c1e80db58e
+
+	column id_cliente
+		dataType: int64
+		formatString: 0
+		lineageTag: 311ab180-0cd3-4718-abc4-8826c2478dd8
+		summarizeBy: none
+		sourceColumn: id_cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column edad
+		dataType: int64
+		formatString: 0
+		lineageTag: 89b69e8c-08e1-4843-a7ba-5cf2e2affc12
+		summarizeBy: sum
+		sourceColumn: edad
+
+		annotation SummarizationSetBy = Automatic
+
+	column genero
+		dataType: string
+		lineageTag: f921d032-c81f-4f4f-b3de-e4580d8d4ec0
+		summarizeBy: none
+		sourceColumn: genero
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo_cliente
+		dataType: string
+		lineageTag: 085065ad-b57c-4b85-9dba-dfdf62b91c38
+		summarizeBy: none
+		sourceColumn: tipo_cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column nombre_cliente
+		dataType: string
+		lineageTag: c095f820-51c0-4d34-b051-673a5153d05d
+		summarizeBy: none
+		sourceColumn: nombre_cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Clientes = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\natal_5bvjz7f\Downloads\Datos_Restaurante_Ejemplo_6meses.xlsx"), null, true),
+				    Clientes_Sheet = Source{[Item="Clientes",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Clientes_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"id_cliente", Int64.Type}, {"edad", Int64.Type}, {"genero", type text}, {"tipo_cliente", type text}, {"nombre_cliente", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

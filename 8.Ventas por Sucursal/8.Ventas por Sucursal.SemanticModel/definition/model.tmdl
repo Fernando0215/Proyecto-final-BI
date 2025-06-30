@@ -1,0 +1,36 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Clientes","ComprasIngredientes","DetallesVenta","CostosOperacion","Ingredientes","Platillos","Promociones","QuejasYReseñas","Recetas","Sucursales","Ventas","Metas"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.144.1155.0 (25.06)+46435b07013d2a234d7fd007083a9e70b8e79f1c
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Clientes
+ref table ComprasIngredientes
+ref table DetallesVenta
+ref table CostosOperacion
+ref table Ingredientes
+ref table Platillos
+ref table Promociones
+ref table DateTableTemplate_b3da5426-9879-4052-aa2c-b0686bac35ed
+ref table LocalDateTable_6068c46d-179d-4249-86c2-f34e14214c8c
+ref table LocalDateTable_54c77009-e7de-4b81-b154-d419edc2a2e5
+ref table QuejasYReseñas
+ref table LocalDateTable_38cf752c-91c4-428e-920b-7cad65d869cf
+ref table LocalDateTable_78eeecc2-8153-4c9b-bf77-b6e757fd6913
+ref table Recetas
+ref table Sucursales
+ref table Ventas
+ref table Metas
+
+ref cultureInfo en-US
+

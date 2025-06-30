@@ -1,0 +1,60 @@
+table Platillos
+	lineageTag: d42d7de2-440f-4479-af1a-eb5aee28a99e
+
+	column id_platillo
+		dataType: int64
+		formatString: 0
+		lineageTag: 86af8068-fc63-45e1-96c6-efb663a8b426
+		summarizeBy: none
+		sourceColumn: id_platillo
+
+		annotation SummarizationSetBy = Automatic
+
+	column nombre_platillo
+		dataType: string
+		lineageTag: d38cf843-2bd1-4ea4-a0be-d93a201abe3d
+		summarizeBy: none
+		sourceColumn: nombre_platillo
+
+		annotation SummarizationSetBy = Automatic
+
+	column precio_venta
+		dataType: int64
+		formatString: 0
+		lineageTag: 152e2222-3f30-42b1-98ee-9e356eec80b4
+		summarizeBy: sum
+		sourceColumn: precio_venta
+
+		annotation SummarizationSetBy = Automatic
+
+	column costo_unitario
+		dataType: double
+		lineageTag: e02378a5-265a-4646-8343-54600a910f78
+		summarizeBy: sum
+		sourceColumn: costo_unitario
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column categoria
+		dataType: string
+		lineageTag: 46bc3403-b1f3-4d69-935e-bc7049c31599
+		summarizeBy: none
+		sourceColumn: categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Platillos = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\natal_5bvjz7f\Downloads\Datos_Restaurante_Ejemplo_6meses.xlsx"), null, true),
+				    Platillos_Sheet = Source{[Item="Platillos",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Platillos_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"id_platillo", Int64.Type}, {"nombre_platillo", type text}, {"precio_venta", Int64.Type}, {"costo_unitario", type number}, {"categoria", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

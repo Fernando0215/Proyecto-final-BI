@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "8.Ventas por Sucursal"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "8f68c0ce-7f0b-44f6-99d3-c623f31fb012"
+  }
+}

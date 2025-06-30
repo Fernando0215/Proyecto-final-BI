@@ -1,0 +1,52 @@
+table ComprasIngredientes
+	lineageTag: 165f14ef-5959-4404-a662-4601c1df8011
+
+	column id_compra
+		dataType: int64
+		formatString: 0
+		lineageTag: db120624-bfd5-4033-b02a-c3cae7ca5f68
+		summarizeBy: sum
+		sourceColumn: id_compra
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: string
+		lineageTag: c35f5bf0-d0f5-46cc-9069-28e0af8926b0
+		summarizeBy: none
+		sourceColumn: fecha
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_ingrediente
+		dataType: int64
+		formatString: 0
+		lineageTag: 44d9c919-dbb0-4377-ba61-dc357e7118ac
+		summarizeBy: none
+		sourceColumn: id_ingrediente
+
+		annotation SummarizationSetBy = Automatic
+
+	column cantidad_comprada
+		dataType: double
+		lineageTag: 23a2197d-c9b0-415f-b493-1591b92c5542
+		summarizeBy: sum
+		sourceColumn: cantidad_comprada
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition ComprasIngredientes = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\natal_5bvjz7f\Downloads\Datos_Restaurante_Ejemplo_6meses.xlsx"), null, true),
+				    ComprasIngredientes_Sheet = Source{[Item="ComprasIngredientes",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(ComprasIngredientes_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"id_compra", Int64.Type}, {"fecha", type any}, {"id_ingrediente", Int64.Type}, {"cantidad_comprada", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

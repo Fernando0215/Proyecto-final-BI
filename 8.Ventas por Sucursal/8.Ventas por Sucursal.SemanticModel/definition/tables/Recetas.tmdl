@@ -1,0 +1,44 @@
+table Recetas
+	lineageTag: a31f4685-74c0-4c57-aac6-116e938cf0d1
+
+	column id_platillo
+		dataType: int64
+		formatString: 0
+		lineageTag: 12f0983c-4acc-403d-9aae-5f683542415f
+		summarizeBy: none
+		sourceColumn: id_platillo
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_ingrediente
+		dataType: int64
+		formatString: 0
+		lineageTag: e1531fe8-6380-4e2b-98ed-2983ad91a2bd
+		summarizeBy: none
+		sourceColumn: id_ingrediente
+
+		annotation SummarizationSetBy = Automatic
+
+	column cantidad_usada
+		dataType: double
+		lineageTag: a6c64987-9c07-4300-8bae-f7037f3ac387
+		summarizeBy: sum
+		sourceColumn: cantidad_usada
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Recetas = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\natal_5bvjz7f\Downloads\Datos_Restaurante_Ejemplo_6meses.xlsx"), null, true),
+				    Recetas_Sheet = Source{[Item="Recetas",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Recetas_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"id_platillo", Int64.Type}, {"id_ingrediente", Int64.Type}, {"cantidad_usada", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

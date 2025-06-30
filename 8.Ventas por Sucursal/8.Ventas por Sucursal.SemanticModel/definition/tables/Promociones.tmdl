@@ -1,0 +1,78 @@
+table Promociones
+	lineageTag: 582aa812-2a5a-4b0b-a942-10fca211e50a
+
+	column id_promocion
+		dataType: int64
+		formatString: 0
+		lineageTag: 2fafe8d5-c3c1-4e24-992c-eb6a9104fff0
+		summarizeBy: none
+		sourceColumn: id_promocion
+
+		annotation SummarizationSetBy = Automatic
+
+	column nombre_promocion
+		dataType: string
+		lineageTag: 84e851ec-119e-48b6-94fd-39fc322277b6
+		summarizeBy: none
+		sourceColumn: nombre_promocion
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo
+		dataType: string
+		lineageTag: 161a391c-5f09-4fe5-a1f2-3aaad5067247
+		summarizeBy: none
+		sourceColumn: tipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column descuento_pct
+		dataType: int64
+		formatString: 0
+		lineageTag: 627b65f5-ecab-4c4b-8bf5-36c975075223
+		summarizeBy: sum
+		sourceColumn: descuento_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_inicio
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d9a2bde1-2ede-450d-8ff7-f4c782477190
+		summarizeBy: none
+		sourceColumn: fecha_inicio
+
+		variation Variation
+			isDefault
+			relationship: dab4936e-01b8-4155-b1d5-a9bda50aab48
+			defaultHierarchy: LocalDateTable_6068c46d-179d-4249-86c2-f34e14214c8c.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_fin
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: c2dadcf0-e675-46ad-bda7-97f80a25ab54
+		summarizeBy: none
+		sourceColumn: fecha_fin
+
+		variation Variation
+			isDefault
+			relationship: 9ccddc94-f8df-46fa-9943-d5e5b7cea57a
+			defaultHierarchy: LocalDateTable_54c77009-e7de-4b81-b154-d419edc2a2e5.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Promociones = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\natal_5bvjz7f\Downloads\Datos_Restaurante_Ejemplo_6meses.xlsx"), null, true),
+				    Promociones_Sheet = Source{[Item="Promociones",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Promociones_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"id_promocion", Int64.Type}, {"nombre_promocion", type text}, {"tipo", type text}, {"descuento_pct", Int64.Type}, {"fecha_inicio", type datetime}, {"fecha_fin", type datetime}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,59 @@
+table CostosOperacion
+	lineageTag: d651cd27-ee34-44c5-b9f8-10e7ca58dee8
+
+	column id_costo
+		dataType: int64
+		formatString: 0
+		lineageTag: 7f671c55-ae55-4429-ac94-8835fe415a13
+		summarizeBy: sum
+		sourceColumn: id_costo
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo_costo
+		dataType: string
+		lineageTag: 543091ee-aa12-40ee-b989-cf075d28ee4f
+		summarizeBy: none
+		sourceColumn: tipo_costo
+
+		annotation SummarizationSetBy = Automatic
+
+	column descripcion
+		dataType: string
+		lineageTag: 579bd889-afea-4758-b1db-7c6f2f45688e
+		summarizeBy: none
+		sourceColumn: descripcion
+
+		annotation SummarizationSetBy = Automatic
+
+	column monto
+		dataType: double
+		lineageTag: 47881831-8ef9-4049-8487-8d2f5b186cf8
+		summarizeBy: sum
+		sourceColumn: monto
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column fecha
+		dataType: string
+		lineageTag: 1139ed2a-1908-4131-9a66-9228eaf949f0
+		summarizeBy: none
+		sourceColumn: fecha
+
+		annotation SummarizationSetBy = Automatic
+
+	partition CostosOperacion = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\natal_5bvjz7f\Downloads\Datos_Restaurante_Ejemplo_6meses.xlsx"), null, true),
+				    CostosOperacion_Sheet = Source{[Item="CostosOperacion",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(CostosOperacion_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"id_costo", Int64.Type}, {"tipo_costo", type text}, {"descripcion", type text}, {"monto", type number}, {"fecha", type any}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

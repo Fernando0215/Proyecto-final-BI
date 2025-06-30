@@ -1,0 +1,178 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 397.99567217837694
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 189.2850250543556,
+            "y": 881.12853032989324
+          },
+          "nodeIndex": "Clientes",
+          "nodeLineageTag": "b350d0df-4be3-4543-902d-e6c1e80db58e",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 308.57283642707739,
+            "y": 267.59887518734558
+          },
+          "nodeIndex": "ComprasIngredientes",
+          "nodeLineageTag": "165f14ef-5959-4404-a662-4601c1df8011",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1022.745812145473,
+            "y": 641.91800710804887
+          },
+          "nodeIndex": "CostosOperacion",
+          "nodeLineageTag": "d651cd27-ee34-44c5-b9f8-10e7ca58dee8",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 623.66062187545344,
+            "y": 417.6684327942661
+          },
+          "nodeIndex": "DetallesVenta",
+          "nodeLineageTag": "45f1c365-4287-40b3-a61a-fe57ae4fc1f4",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 501.61687013357704,
+            "y": 4.6611418047059487
+          },
+          "nodeIndex": "Ingredientes",
+          "nodeLineageTag": "5879efd6-0a5f-4c11-b504-da71d9187b11",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 788.74581214547288,
+            "y": 165.07578111227303
+          },
+          "nodeIndex": "Platillos",
+          "nodeLineageTag": "d42d7de2-440f-4479-af1a-eb5aee28a99e",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 496.35659843770873
+          },
+          "nodeIndex": "Promociones",
+          "nodeLineageTag": "582aa812-2a5a-4b0b-a942-10fca211e50a",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 305.5642513124248,
+            "y": 1137.8360142160977
+          },
+          "nodeIndex": "QuejasYReseñas",
+          "nodeLineageTag": "d93d7711-e342-4ce8-a564-75fecda03d22",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 788.68292671455549,
+            "y": -50
+          },
+          "nodeIndex": "Recetas",
+          "nodeLineageTag": "a31f4685-74c0-4c57-aac6-116e938cf0d1",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 475.76189780629511,
+            "y": 932.9115482925713
+          },
+          "nodeIndex": "Sucursales",
+          "nodeLineageTag": "e19d1aef-f5de-4869-acf1-e5e643c89c3a",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 336.56001313410758,
+            "y": 580.13544098421494
+          },
+          "nodeIndex": "Ventas",
+          "nodeLineageTag": "68c58120-1847-4ec5-a253-b55a2d047d71",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 834.92491682173079,
+            "y": 931.07732617253259
+          },
+          "nodeIndex": "Metas",
+          "nodeLineageTag": "2b22a98a-ef68-49b8-a0cc-5d7220d69eff",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas las tablas",
+      "zoomValue": 70.955543900968863,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas las tablas",
+  "defaultDiagram": "Todas las tablas"
+}

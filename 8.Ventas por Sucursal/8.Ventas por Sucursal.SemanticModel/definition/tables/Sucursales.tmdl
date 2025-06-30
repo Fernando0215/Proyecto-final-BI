@@ -1,0 +1,122 @@
+table Sucursales
+	lineageTag: e19d1aef-f5de-4869-acf1-e5e643c89c3a
+
+	measure MetaDeSucursal = ```
+			
+			LOOKUPVALUE(
+			    Metas[Meta],
+			    Metas[id__sucursal], 
+			    SELECTEDVALUE(Sucursales[id_sucursal])
+			)
+			
+			```
+		formatString: 0
+		lineageTag: e9a7c990-0e49-4684-ba5c-8390f3e90d74
+
+	measure TotalSucursal = CALCULATE(SUM(Ventas[total]))
+		lineageTag: b62973cf-08fd-4584-9110-36c537bfd505
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Meta_SucursalMenosVentas = ```
+			
+			VAR SucursalID = 
+			    MINX(
+			        FILTER(
+			            SUMMARIZE(
+			                Ventas,
+			                Sucursales[id_sucursal],
+			                "TotalSucursal", SUM(Ventas[total])
+			            ),
+			            [TotalSucursal] = MINX(
+			                SUMMARIZE(
+			                    Ventas,
+			                    Sucursales[id_sucursal],
+			                    "TotalSucursal", SUM(Ventas[total])
+			                ),
+			                [TotalSucursal]
+			            )
+			        ),
+			        Sucursales[id_sucursal]
+			    )
+			RETURN
+			    LOOKUPVALUE(Metas[Meta], Metas[id__sucursal], SucursalID)
+			
+			```
+		formatString: 0
+		lineageTag: 07f8a442-3148-48b4-ab0f-8a129ab9bc6f
+
+	measure Meta_Sucursal_benito = ```
+			
+			LOOKUPVALUE(
+			    Metas[Meta],
+			    Metas[id__sucursal], 
+			    1
+			)
+			
+			```
+		formatString: 0
+		lineageTag: a95e6016-a076-475b-a769-e78d3b72a71b
+
+	measure Meta_Sucursal_tecla = ```
+			
+			LOOKUPVALUE(
+			    Metas[Meta],
+			    Metas[id__sucursal], 
+			    2
+			)
+			
+			```
+		formatString: 0
+		lineageTag: cf9ffc7e-d323-492f-876c-8bad400d9b93
+
+	measure Meta_Sucursal_escalon = ```
+			
+			LOOKUPVALUE(
+			    Metas[Meta],
+			    Metas[id__sucursal], 
+			    3
+			)
+			
+			```
+		formatString: 0
+		lineageTag: 5d4906d6-76fb-495e-a66d-e9bcbaabbefa
+
+	column id_sucursal
+		dataType: int64
+		formatString: 0
+		lineageTag: e0a4d480-a7c1-493e-9f6a-3b41ac5c0bb4
+		summarizeBy: none
+		sourceColumn: id_sucursal
+
+		annotation SummarizationSetBy = Automatic
+
+	column nombre_sucursal
+		dataType: string
+		lineageTag: 1ce22124-3adc-415d-9074-4e707edd0be1
+		summarizeBy: none
+		sourceColumn: nombre_sucursal
+
+		annotation SummarizationSetBy = Automatic
+
+	column ubicacion
+		dataType: string
+		lineageTag: 4923ba45-feac-4de9-8e54-5d25e168022a
+		summarizeBy: none
+		sourceColumn: ubicacion
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Sucursales = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\natal_5bvjz7f\Downloads\Datos_Restaurante_Ejemplo_6meses.xlsx"), null, true),
+				    Sucursales_Sheet = Source{[Item="Sucursales",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Sucursales_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"id_sucursal", Int64.Type}, {"nombre_sucursal", type text}, {"ubicacion", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

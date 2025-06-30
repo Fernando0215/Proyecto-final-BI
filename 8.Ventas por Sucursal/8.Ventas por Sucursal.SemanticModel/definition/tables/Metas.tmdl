@@ -1,0 +1,44 @@
+table Metas
+	lineageTag: 2b22a98a-ef68-49b8-a0cc-5d7220d69eff
+
+	measure TotalMeta = CALCULATE(SUM(Metas[Meta]))
+		formatString: 0
+		lineageTag: d289534d-05b5-4b79-adef-e6bfde430456
+
+	column Sucursal
+		dataType: string
+		lineageTag: 71d8da25-9a9f-4f53-8f9e-592fc9143944
+		summarizeBy: none
+		sourceColumn: Sucursal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Meta
+		dataType: int64
+		formatString: 0
+		lineageTag: 0f4acc76-fddb-4be8-93de-33522c28b553
+		summarizeBy: sum
+		sourceColumn: Meta
+
+		annotation SummarizationSetBy = Automatic
+
+	column id__sucursal
+		dataType: int64
+		formatString: 0
+		lineageTag: 04173ebc-4dfb-4d9a-bd0d-1789edcc8a63
+		summarizeBy: none
+		sourceColumn: id__sucursal
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Metas = m
+		mode: import
+		source =
+				let
+				    Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45WCi5NLi0qTsxRcC1OTsw5vDlPSUfJ0MjAwABIGyvF6iCpCE7MK0lUCElNzkkEKTI2BSsywlCk4JSal1mSD1YDMchQKTYWAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Sucursal = _t, Meta = _t, id__sucursal = _t]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen,{{"Sucursal", type text}, {"Meta", Int64.Type}, {"id__sucursal", Int64.Type}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

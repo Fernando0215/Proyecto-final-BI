@@ -1,0 +1,70 @@
+relationship dab4936e-01b8-4155-b1d5-a9bda50aab48
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Promociones.fecha_inicio
+	toColumn: LocalDateTable_6068c46d-179d-4249-86c2-f34e14214c8c.Date
+
+relationship 9ccddc94-f8df-46fa-9943-d5e5b7cea57a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Promociones.fecha_fin
+	toColumn: LocalDateTable_54c77009-e7de-4b81-b154-d419edc2a2e5.Date
+
+relationship ff9af884-6281-427c-b5d7-35a98c0e28ff
+	joinOnDateBehavior: datePartOnly
+	fromColumn: QuejasYReseñas.fecha
+	toColumn: LocalDateTable_38cf752c-91c4-428e-920b-7cad65d869cf.Date
+
+relationship c8577b88-0828-4f6e-b358-ee025358c5fa
+	joinOnDateBehavior: datePartOnly
+	fromColumn: QuejasYReseñas.hora
+	toColumn: LocalDateTable_78eeecc2-8153-4c9b-bf77-b6e757fd6913.Date
+
+relationship AutoDetected_59c88d03-45ed-474a-a1d1-8fd413f5e7c8
+	fromColumn: QuejasYReseñas.id_cliente
+	toColumn: Clientes.id_cliente
+
+relationship AutoDetected_1b734d15-6d35-4392-9a00-28d78fcb0302
+	fromColumn: Ventas.id_cliente
+	toColumn: Clientes.id_cliente
+
+relationship AutoDetected_fa248c59-061d-4e2a-9086-3e8ee13262a8
+	fromColumn: Ventas.fecha
+	toColumn: ComprasIngredientes.fecha
+
+relationship AutoDetected_04a901b1-eff0-4662-82ef-c454d311a5de
+	fromColumn: ComprasIngredientes.id_ingrediente
+	toColumn: Ingredientes.id_ingrediente
+
+relationship AutoDetected_7caa19ed-34ef-4747-a37d-82c9989af26c
+	fromColumn: Recetas.id_ingrediente
+	toColumn: Ingredientes.id_ingrediente
+
+relationship AutoDetected_da71916a-e5de-4de4-841c-4551f80ff265
+	fromColumn: DetallesVenta.id_venta
+	toColumn: Ventas.id_venta
+
+relationship AutoDetected_5edf6ac9-06fc-4145-a9d1-148ce66523c6
+	fromColumn: DetallesVenta.id_platillo
+	toColumn: Platillos.id_platillo
+
+relationship AutoDetected_1dd50065-588e-4382-a36c-d368e6098ebb
+	fromColumn: Recetas.id_platillo
+	toColumn: Platillos.id_platillo
+
+relationship AutoDetected_5f5964ef-252e-489b-8bbc-a1f94c11e660
+	fromColumn: Ventas.id_promocion
+	toColumn: Promociones.id_promocion
+
+relationship AutoDetected_bb269d5b-6477-4ccb-8182-1625df5a0ac1
+	fromColumn: QuejasYReseñas.id_sucursal
+	toColumn: Sucursales.id_sucursal
+
+relationship AutoDetected_045526c8-e436-49e6-a1b9-707753c5e029
+	fromColumn: Ventas.id_sucursal
+	toColumn: Sucursales.id_sucursal
+
+relationship AutoDetected_cf01b11d-2fcb-404e-9d61-550d94506e8b
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: Metas.id__sucursal
+	toColumn: Sucursales.id_sucursal
+
