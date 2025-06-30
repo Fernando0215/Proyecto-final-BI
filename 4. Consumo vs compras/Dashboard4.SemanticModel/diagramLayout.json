@@ -1,0 +1,165 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 1131.199951171875,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1816,
+            "y": 776.79999923706055
+          },
+          "nodeIndex": "Clientes",
+          "nodeLineageTag": "c3ad52df-1e01-4eb6-91cb-6953652b28e1",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 68,
+            "y": 276
+          },
+          "nodeIndex": "ComprasIngredientes",
+          "nodeLineageTag": "4d2d5818-0779-4bce-b621-dfc681fa86ec",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 1550,
+            "y": 0
+          },
+          "nodeIndex": "CostosOperacion",
+          "nodeLineageTag": "3810592a-fdf7-408d-b974-f3632b7772dd",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 1434,
+            "y": 247
+          },
+          "nodeIndex": "DetallesVenta",
+          "nodeLineageTag": "4fa80b1e-e543-4901-9a0e-f2ae8bf182c6",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 411,
+            "y": 277
+          },
+          "nodeIndex": "Ingredientes",
+          "nodeLineageTag": "583b314d-965d-4ed1-905e-6c8fbcab2703",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 1098,
+            "y": 250
+          },
+          "nodeIndex": "Platillos",
+          "nodeLineageTag": "65a1de20-c6bc-43c7-a1b9-103719a54d89",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 2038,
+            "y": 13
+          },
+          "nodeIndex": "Promociones",
+          "nodeLineageTag": "db8cb281-796c-45da-b1ee-9953ff9030b6",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 2136,
+            "y": 280
+          },
+          "nodeIndex": "QuejasYReseñas",
+          "nodeLineageTag": "16368656-bf44-4956-898a-295879466658",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 763,
+            "y": 276
+          },
+          "nodeIndex": "Recetas",
+          "nodeLineageTag": "a290cb61-661c-4566-a8e8-e7ada9be027b",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 1770.4000244140625,
+            "y": 0
+          },
+          "nodeIndex": "Sucursales",
+          "nodeLineageTag": "8133f25e-57c2-474e-9879-ea3bbe59ba0e",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 1737.9998779296875,
+            "y": 321
+          },
+          "nodeIndex": "Ventas",
+          "nodeLineageTag": "fc9f193b-7fd0-4cb5-be0f-0d72c94819b0",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 11
+        }
+      ],
+      "name": "Todas las tablas",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas las tablas",
+  "defaultDiagram": "Todas las tablas"
+}

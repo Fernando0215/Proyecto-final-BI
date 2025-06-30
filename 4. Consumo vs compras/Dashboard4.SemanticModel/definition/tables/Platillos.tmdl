@@ -1,0 +1,63 @@
+table Platillos
+	lineageTag: 65a1de20-c6bc-43c7-a1b9-103719a54d89
+
+	column id_platillo
+		dataType: int64
+		formatString: 0
+		lineageTag: a4252588-31ff-4ec8-8411-fa775bdc249a
+		summarizeBy: none
+		sourceColumn: id_platillo
+
+		annotation SummarizationSetBy = Automatic
+
+	column nombre_platillo
+		dataType: string
+		lineageTag: e8bd7234-621f-4ca6-ad8a-8d0da57426d1
+		summarizeBy: none
+		sourceColumn: nombre_platillo
+
+		annotation SummarizationSetBy = Automatic
+
+	column precio_venta
+		dataType: int64
+		formatString: 0
+		lineageTag: 25804003-c94d-47c2-b758-2ddb2f44fb7c
+		summarizeBy: sum
+		sourceColumn: precio_venta
+
+		annotation SummarizationSetBy = Automatic
+
+	column costo_unitario
+		dataType: double
+		lineageTag: efee8b25-f597-46ec-ad63-137cfb604801
+		summarizeBy: sum
+		sourceColumn: costo_unitario
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column categoria
+		dataType: string
+		lineageTag: ec6fb9ab-5f35-4cc6-b7f1-9196d0c01448
+		summarizeBy: none
+		sourceColumn: categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Platillos = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("D:\Escritorio\BI\Proyecto-final-BI\Datos_Restaurante_Ejemplo_6meses.xlsx"), null, true),
+				    Platillos_Sheet = Origen{[Item="Platillos",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Platillos_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"id_platillo", Int64.Type}, {"nombre_platillo", type text}, {"precio_venta", Int64.Type}, {"costo_unitario", type number}, {"categoria", type text}}),
+				    #"Filas en blanco eliminadas" = Table.SelectRows(#"Tipo cambiado", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null})))
+				in
+				    #"Filas en blanco eliminadas"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

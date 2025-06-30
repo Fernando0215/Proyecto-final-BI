@@ -1,0 +1,81 @@
+table CostosOperacion
+	lineageTag: 3810592a-fdf7-408d-b974-f3632b7772dd
+
+	measure CostoTotalComprado =
+			
+			SUMX(
+			    'ComprasIngredientes',
+			    'ComprasIngredientes'[cantidad_comprada] * RELATED(Ingredientes[costo_unitario])
+			)
+		lineageTag: e8ac65a9-ae12-46de-a0f3-0f4238d94738
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column id_costo
+		dataType: int64
+		formatString: 0
+		lineageTag: dbd59d5d-54c3-4931-b369-c553e2b86ee8
+		summarizeBy: sum
+		sourceColumn: id_costo
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo_costo
+		dataType: string
+		lineageTag: 86610a27-478e-48d1-a468-d86b97ea11cb
+		summarizeBy: none
+		sourceColumn: tipo_costo
+
+		annotation SummarizationSetBy = Automatic
+
+	column descripcion
+		dataType: string
+		lineageTag: 0038de12-eda8-4292-802c-52dd3a2f108e
+		summarizeBy: none
+		sourceColumn: descripcion
+
+		annotation SummarizationSetBy = Automatic
+
+	column monto
+		dataType: double
+		lineageTag: 22ec1a9f-bacf-4d25-84c7-88078f04086e
+		summarizeBy: sum
+		sourceColumn: monto
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column fecha
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5ebfa7e7-49d9-47f6-aab7-2165b386cd4a
+		summarizeBy: none
+		sourceColumn: fecha
+
+		variation Variación
+			isDefault
+			relationship: bdf21068-a782-4f40-90c7-07c8f5bd542a
+			defaultHierarchy: LocalDateTable_c3f48816-cd5f-4964-aff5-0e928ba4a9fa.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition CostosOperacion = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("D:\Escritorio\BI\Proyecto-final-BI\Datos_Restaurante_Ejemplo_6meses.xlsx"), null, true),
+				    CostosOperacion_Sheet = Origen{[Item="CostosOperacion",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(CostosOperacion_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"id_costo", Int64.Type}, {"tipo_costo", type text}, {"descripcion", type text}, {"monto", type number}, {"fecha", type any}}),
+				    #"Filas en blanco eliminadas" = Table.SelectRows(#"Tipo cambiado", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Filas en blanco eliminadas",{{"fecha", type date}})
+				in
+				    #"Tipo cambiado1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

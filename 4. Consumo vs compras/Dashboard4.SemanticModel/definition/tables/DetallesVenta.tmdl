@@ -1,0 +1,67 @@
+table DetallesVenta
+	lineageTag: 4fa80b1e-e543-4901-9a0e-f2ae8bf182c6
+
+	measure CantidadVendidaConPromo =
+			
+			CALCULATE(
+			    SUM(DetallesVenta[cantidad]),
+			    FILTER(
+			        Ventas,
+			        NOT ISBLANK(Ventas[id_promocion])
+			    )
+			)
+		formatString: 0
+		lineageTag: e28ad9af-6471-4b88-951e-b50fe0149494
+
+	column id_venta
+		dataType: int64
+		formatString: 0
+		lineageTag: 8d435de5-d767-4078-a7c9-27dcb3f76171
+		summarizeBy: none
+		sourceColumn: id_venta
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_platillo
+		dataType: int64
+		formatString: 0
+		lineageTag: e75a6485-3072-4c9b-835b-8e9d6529497d
+		summarizeBy: none
+		sourceColumn: id_platillo
+
+		annotation SummarizationSetBy = Automatic
+
+	column cantidad
+		dataType: int64
+		formatString: 0
+		lineageTag: 85775cf6-a87b-46f5-90c2-98c5c3d0a6af
+		summarizeBy: sum
+		sourceColumn: cantidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column precio_unitario
+		dataType: int64
+		formatString: 0
+		lineageTag: 0fb79087-aaa6-4ddc-8122-66ae2502dedc
+		summarizeBy: sum
+		sourceColumn: precio_unitario
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DetallesVenta = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("D:\Escritorio\BI\Proyecto-final-BI\Datos_Restaurante_Ejemplo_6meses.xlsx"), null, true),
+				    DetallesVenta_Sheet = Origen{[Item="DetallesVenta",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(DetallesVenta_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"id_venta", Int64.Type}, {"id_platillo", Int64.Type}, {"cantidad", Int64.Type}, {"precio_unitario", Int64.Type}}),
+				    #"Filas en blanco eliminadas" = Table.SelectRows(#"Tipo cambiado", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null})))
+				in
+				    #"Filas en blanco eliminadas"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+
