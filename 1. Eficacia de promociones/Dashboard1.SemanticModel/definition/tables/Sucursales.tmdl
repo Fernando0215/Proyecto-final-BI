@@ -1,0 +1,44 @@
+table Sucursales
+	lineageTag: 8133f25e-57c2-474e-9879-ea3bbe59ba0e
+
+	column id_sucursal
+		dataType: int64
+		formatString: 0
+		lineageTag: 8c4b08b0-a652-4c73-bcd5-f47dda04bb0d
+		summarizeBy: none
+		sourceColumn: id_sucursal
+
+		annotation SummarizationSetBy = Automatic
+
+	column nombre_sucursal
+		dataType: string
+		lineageTag: 2bbb6cb4-967a-4c02-8d28-1729e003ae90
+		summarizeBy: none
+		sourceColumn: nombre_sucursal
+
+		annotation SummarizationSetBy = Automatic
+
+	column ubicacion
+		dataType: string
+		lineageTag: ba0e60f1-dceb-478d-af42-8817f1a09fdb
+		summarizeBy: none
+		sourceColumn: ubicacion
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Sucursales = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("D:\Escritorio\BI\Proyecto-final-BI\Datos_Restaurante_Ejemplo_6meses.xlsx"), null, true),
+				    Sucursales_Sheet = Origen{[Item="Sucursales",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Sucursales_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"id_sucursal", Int64.Type}, {"nombre_sucursal", type text}, {"ubicacion", type text}}),
+				    #"Filas en blanco eliminadas" = Table.SelectRows(#"Tipo cambiado", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null})))
+				in
+				    #"Filas en blanco eliminadas"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

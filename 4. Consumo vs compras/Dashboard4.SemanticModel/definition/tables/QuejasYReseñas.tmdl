@@ -1,0 +1,105 @@
+table QuejasYReseñas
+	lineageTag: 16368656-bf44-4956-898a-295879466658
+
+	column id_reseña
+		dataType: int64
+		formatString: 0
+		lineageTag: 29d5dd7a-37f5-44c1-802b-7c60f30ece09
+		summarizeBy: sum
+		sourceColumn: id_reseña
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 5cc157be-5c1c-4df3-ab06-689446e52543
+		summarizeBy: none
+		sourceColumn: fecha
+
+		variation Variación
+			isDefault
+			relationship: 729d56ba-1494-4724-a8e7-bd06a8864f4e
+			defaultHierarchy: LocalDateTable_f8450f4d-0530-47bd-bf46-f6fd4a7705f7.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column hora
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 6a430ddf-d11c-449d-b1bd-133b47adfd9f
+		summarizeBy: none
+		sourceColumn: hora
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column canal
+		dataType: string
+		lineageTag: 1430d4f1-51af-497a-9414-8f36030cce5a
+		summarizeBy: none
+		sourceColumn: canal
+
+		annotation SummarizationSetBy = Automatic
+
+	column categoria
+		dataType: string
+		lineageTag: 6b4a257f-071c-4790-95c1-fa95c6b4e0ec
+		summarizeBy: none
+		sourceColumn: categoria
+
+		annotation SummarizationSetBy = Automatic
+
+	column comentario
+		dataType: string
+		lineageTag: 99190e35-da44-4b1b-a5a0-8bf774e99c2f
+		summarizeBy: none
+		sourceColumn: comentario
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_cliente
+		dataType: int64
+		formatString: 0
+		lineageTag: fe1d93f3-308e-458c-b859-62c1f0c49985
+		summarizeBy: none
+		sourceColumn: id_cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_sucursal
+		dataType: int64
+		formatString: 0
+		lineageTag: d442d920-243b-4046-bce2-7cdf20f2130c
+		summarizeBy: none
+		sourceColumn: id_sucursal
+
+		annotation SummarizationSetBy = Automatic
+
+	column puntuacion
+		dataType: int64
+		formatString: 0
+		lineageTag: ef207380-b357-419d-858c-04c988e76305
+		summarizeBy: sum
+		sourceColumn: puntuacion
+
+		annotation SummarizationSetBy = Automatic
+
+	partition QuejasYReseñas = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("D:\Escritorio\BI\Proyecto-final-BI\Datos_Restaurante_Ejemplo_6meses.xlsx"), null, true),
+				    QuejasYReseñas_Sheet = Origen{[Item="QuejasYReseñas",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(QuejasYReseñas_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"id_reseña", Int64.Type}, {"fecha", type datetime}, {"hora", type datetime}, {"canal", type text}, {"categoria", type text}, {"comentario", type text}, {"id_cliente", Int64.Type}, {"id_sucursal", Int64.Type}, {"puntuacion", Int64.Type}}),
+				    #"Filas en blanco eliminadas" = Table.SelectRows(#"Tipo cambiado", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Filas en blanco eliminadas",{{"hora", type time}})
+				in
+				    #"Tipo cambiado1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

@@ -1,0 +1,146 @@
+table Ventas
+	lineageTag: fc9f193b-7fd0-4cb5-be0f-0d72c94819b0
+
+	measure TotalVentas = SUM(Ventas[total])
+		lineageTag: 153e5e61-aca1-415d-b797-4493d3f0f1c1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure VentasConPromocion =
+			
+			CALCULATE([TotalVentas], Ventas[TipoPromocion] = "Con Promoción")
+		lineageTag: be13cdd3-fef0-4597-82ce-e678d436bd1f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure VentasSinPromocion =
+			
+			CALCULATE([TotalVentas], Ventas[TipoPromocion] = "Sin Promoción")
+		lineageTag: c49f94cd-0973-4c2b-a74a-b978883570bf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure DiferenciaPorcentual =
+			
+			DIVIDE([VentasConPromocion] - [VentasSinPromocion], [VentasSinPromocion], 0)
+		lineageTag: ef2a8551-2d73-41e2-b370-4718633d1ae8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column id_venta
+		dataType: int64
+		formatString: 0
+		lineageTag: 13313a93-ad68-42b3-806e-576a14ece76b
+		summarizeBy: none
+		sourceColumn: id_venta
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d965608a-a21c-4015-ae14-02565995c5e3
+		summarizeBy: none
+		sourceColumn: fecha
+
+		variation Variación
+			isDefault
+			relationship: 80d177bd-2703-49f8-b106-ce77c1567431
+			defaultHierarchy: LocalDateTable_2c68da58-cc9d-472b-b922-bd9c89255ae3.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column hora
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 91f5cb46-eadd-4a4d-a416-7dad8d724eed
+		summarizeBy: none
+		sourceColumn: hora
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column id_cliente
+		dataType: int64
+		formatString: 0
+		lineageTag: e5f11c9c-05a4-4919-b987-5990cef92ce7
+		summarizeBy: none
+		sourceColumn: id_cliente
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_sucursal
+		dataType: int64
+		formatString: 0
+		lineageTag: 577c64af-42b8-4f4d-9ba4-994a6e46a683
+		summarizeBy: none
+		sourceColumn: id_sucursal
+
+		annotation SummarizationSetBy = Automatic
+
+	column total
+		dataType: double
+		lineageTag: 025a79d7-4846-4eba-97ae-164433ca5eb5
+		summarizeBy: sum
+		sourceColumn: total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column id_promocion
+		dataType: int64
+		formatString: 0
+		lineageTag: 9ad50172-c5c8-44fa-997d-171eff6feb0c
+		summarizeBy: none
+		sourceColumn: id_promocion
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo_pedido
+		dataType: string
+		lineageTag: c0f5deaf-30f0-4e5c-badb-d18b30b2295c
+		summarizeBy: none
+		sourceColumn: tipo_pedido
+
+		annotation SummarizationSetBy = Automatic
+
+	column MesNum
+		dataType: int64
+		formatString: 0
+		lineageTag: cfa58ce0-f120-4a1f-a3aa-ea36252d2236
+		summarizeBy: sum
+		sourceColumn: MesNum
+
+		annotation SummarizationSetBy = Automatic
+
+	column TipoPromocion
+		dataType: string
+		lineageTag: 902aa824-83b5-40eb-832f-3aca147a3adb
+		summarizeBy: none
+		sourceColumn: TipoPromocion
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Ventas = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("D:\Escritorio\BI\Proyecto-final-BI\Datos_Restaurante_Ejemplo_6meses.xlsx"), null, true),
+				    Ventas_Sheet = Origen{[Item="Ventas",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Ventas_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"id_venta", Int64.Type}, {"fecha", type date}, {"hora", type time}, {"id_cliente", Int64.Type}, {"id_sucursal", Int64.Type}, {"total", type number}, {"id_promocion", Int64.Type}, {"tipo_pedido", type text}}),
+				    #"Mes insertado" = Table.AddColumn(#"Tipo cambiado", "Mes", each Date.Month([fecha]), Int64.Type),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Mes insertado",{{"Mes", "MesNum"}}),
+				    #"Filas en blanco eliminadas" = Table.SelectRows(#"Columnas con nombre cambiado", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Personalizada agregada" = Table.AddColumn(#"Filas en blanco eliminadas", "TipoPromocion", each if [id_promocion] = null then "Sin Promoción" else "Con Promoción")
+				in
+				    #"Personalizada agregada"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

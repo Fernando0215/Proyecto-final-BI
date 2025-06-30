@@ -1,0 +1,96 @@
+{
+  "config": "{\"version\":\"5.59\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY24SU10\",\"version\":\"5.65\",\"type\":2}},\"activeSectionIndex\":0,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":2,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"queryLimitOption\":6,\"exportDataMode\":1,\"useDefaultAggregateDisplayName\":true,\"useEnhancedTooltips\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}],\"outspacePane\":[{\"properties\":{\"expanded\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY24SU10",
+            "path": "BaseThemes/CY24SU10.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{\"objects\":{\"background\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":0}}}}}}}],\"outspace\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":1,\"Percent\":0}}}}}}}]}}",
+      "displayName": "Página 1",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "afd758cebe0b32e5189a",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"0132d13d6d4401007410\",\"layouts\":[{\"id\":0,\"position\":{\"x\":170.15494396891071,\"y\":0,\"z\":0,\"width\":234.64915660228817,\"height\":212.6936799611384,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Ventas.TotalVentas\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"Ventas\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"TotalVentas\"},\"Name\":\"Ventas.TotalVentas\",\"NativeReferenceName\":\"Ventas Totales\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"TotalVentas\"}}}]},\"columnProperties\":{\"Ventas.TotalVentas\":{\"displayName\":\"Ventas Totales\",\"formatString\":\"\\\\$#,0.###############;-\\\\$#,0.###############;\\\\$#,0.###############\"}},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"labels\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":0}}}}}}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":1,\"Percent\":0}}}}}}}]}}}",
+          "filters": "[]",
+          "height": 212.69,
+          "width": 234.65,
+          "x": 170.15,
+          "y": 0.00,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"1cc99eb66e9e88099a60\",\"layouts\":[{\"id\":0,\"position\":{\"x\":404.8041005711989,\"y\":0,\"z\":5000,\"width\":234.64915660228817,\"height\":212.6936799611384,\"tabOrder\":5000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Ventas.VentasConPromocion\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"Ventas\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"VentasConPromocion\"},\"Name\":\"Ventas.VentasConPromocion\",\"NativeReferenceName\":\"Ventas Con Promocion\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"VentasConPromocion\"}}}]},\"columnProperties\":{\"Ventas.TotalVentas\":{\"formatString\":null},\"Ventas.VentasConPromocion\":{\"displayName\":\"Ventas Con Promocion\"}},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"labels\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":0}}}}}}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":1,\"Percent\":0}}}}}}}]}}}",
+          "filters": "[]",
+          "height": 212.69,
+          "width": 234.65,
+          "x": 404.80,
+          "y": 0.00,
+          "z": 5000.00
+        },
+        {
+          "config": "{\"name\":\"374c42537089b2cc21ab\",\"layouts\":[{\"id\":0,\"position\":{\"x\":821.9581567530445,\"y\":212.6936799611384,\"z\":3000,\"width\":333.4488014874621,\"height\":255.23241595336606,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"Platillos.nombre_platillo\"},{\"queryRef\":\"DetallesVenta.CantidadVendidaConPromo\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"p\",\"Entity\":\"Platillos\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"DetallesVenta\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"p\"}},\"Property\":\"nombre_platillo\"},\"Name\":\"Platillos.nombre_platillo\",\"NativeReferenceName\":\"Platillo\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"CantidadVendidaConPromo\"},\"Name\":\"DetallesVenta.CantidadVendidaConPromo\",\"NativeReferenceName\":\"Cant Vendida en Promo\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"CantidadVendidaConPromo\"}}}]},\"columnProperties\":{\"Platillos.nombre_platillo\":{\"displayName\":\"Platillo\"},\"DetallesVenta.CantidadVendidaConPromo\":{\"displayName\":\"Cant Vendida en Promo\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"values\":[{\"properties\":{\"backColorPrimary\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":1,\"Percent\":0}}}}},\"fontColorPrimary\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":0}}}}},\"fontColorSecondary\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":0}}}}},\"backColorSecondary\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":1,\"Percent\":0.2}}}}}}}],\"grid\":[{\"properties\":{\"gridHorizontalColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":1,\"Percent\":0}}}}}}}],\"columnHeaders\":[{\"properties\":{\"fontColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":0}}}}},\"backColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":-0.6}}}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Platillos más vendidos en promoción'\"}}},\"alignment\":{\"expr\":{\"Literal\":{\"Value\":\"'center'\"}}},\"fontColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":0}}}}}}}],\"background\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":1,\"Percent\":0}}}}}}}]}}}",
+          "filters": "[]",
+          "height": 255.23,
+          "width": 333.45,
+          "x": 821.96,
+          "y": 212.69,
+          "z": 3000.00
+        },
+        {
+          "config": "{\"name\":\"3c733c8d750ebcbb086e\",\"layouts\":[{\"id\":0,\"position\":{\"x\":639.453257173487,\"y\":0,\"z\":6000,\"width\":234.64915660228817,\"height\":212.6936799611384,\"tabOrder\":6000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Ventas.VentasSinPromocion\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"Ventas\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"VentasSinPromocion\"},\"Name\":\"Ventas.VentasSinPromocion\",\"NativeReferenceName\":\"Ventas Sin Promocion\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"VentasSinPromocion\"}}}]},\"columnProperties\":{\"Ventas.TotalVentas\":{\"formatString\":null},\"Ventas.VentasSinPromocion\":{\"displayName\":\"Ventas Sin Promocion\"}},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"labels\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":0}}}}}}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":1,\"Percent\":0}}}}}}}]}}}",
+          "filters": "[]",
+          "height": 212.69,
+          "width": 234.65,
+          "x": 639.45,
+          "y": 0.00,
+          "z": 6000.00
+        },
+        {
+          "config": "{\"name\":\"866625f57575759a25e1\",\"layouts\":[{\"id\":0,\"position\":{\"x\":389.7097103804084,\"y\":467.92609591450446,\"z\":4000,\"width\":499.48709358615724,\"height\":252.48798137322234,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"pieChart\",\"projections\":{\"Category\":[{\"queryRef\":\"Promociones.nombre_promocion\",\"active\":true}],\"Y\":[{\"queryRef\":\"CountNonNull(Ventas.id_promocion)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"p\",\"Entity\":\"Promociones\",\"Type\":0},{\"Name\":\"v\",\"Entity\":\"Ventas\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"p\"}},\"Property\":\"nombre_promocion\"},\"Name\":\"Promociones.nombre_promocion\",\"NativeReferenceName\":\"Promoción\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"id_promocion\"}},\"Function\":5},\"Name\":\"CountNonNull(Ventas.id_promocion)\",\"NativeReferenceName\":\"Cantidad de artículos \"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"id_promocion\"}},\"Function\":5}}}]},\"columnProperties\":{\"Promociones.nombre_promocion\":{\"displayName\":\"Promoción\"},\"CountNonNull(Ventas.id_promocion)\":{\"displayName\":\"Cantidad de artículos \"}},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"dataPoint\":[{\"properties\":{\"fill\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":7,\"Percent\":-0.5}}}}}},\"selector\":{\"data\":[{\"scopeId\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Promociones\"}},\"Property\":\"nombre_promocion\"}},\"Right\":{\"Literal\":{\"Value\":\"'Combo Especial'\"}}}}}]}},{\"properties\":{\"fill\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":5,\"Percent\":0.6}}}}}},\"selector\":{\"data\":[{\"scopeId\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Promociones\"}},\"Property\":\"nombre_promocion\"}},\"Right\":{\"Literal\":{\"Value\":\"'2x1'\"}}}}}]}},{\"properties\":{\"fill\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":7,\"Percent\":0.6}}}}}},\"selector\":{\"data\":[{\"scopeId\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Promociones\"}},\"Property\":\"nombre_promocion\"}},\"Right\":{\"Literal\":{\"Value\":\"'Descuento 10%'\"}}}}}]}}],\"labels\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":0}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}]}}],\"legend\":[{\"properties\":{\"labelColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":0}}}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"fontColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":0}}}}}}}],\"background\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":1,\"Percent\":0}}}}}}}]}}}",
+          "filters": "[]",
+          "height": 252.49,
+          "width": 499.49,
+          "x": 389.71,
+          "y": 467.93,
+          "z": 4000.00
+        },
+        {
+          "config": "{\"name\":\"9906e301872a50b0ee47\",\"layouts\":[{\"id\":0,\"position\":{\"x\":874.1024137757752,\"y\":0,\"z\":1000,\"width\":226.415852861857,\"height\":212.6936799611384,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Ventas.DiferenciaPorcentual\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"Ventas\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"DiferenciaPorcentual\"},\"Name\":\"Ventas.DiferenciaPorcentual\",\"NativeReferenceName\":\"↑ vs sin promoción\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"DiferenciaPorcentual\"}}}]},\"columnProperties\":{\"Ventas.DiferenciaPorcentual\":{\"displayName\":\"↑ vs sin promoción\",\"formatString\":\"0.00 %;-0.00 %;0.00 %\"}},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"labels\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":0}}}}}}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":1,\"Percent\":0}}}}}}}]}}}",
+          "filters": "[]",
+          "height": 212.69,
+          "width": 226.42,
+          "x": 874.10,
+          "y": 0.00,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"d55ec2ca0d5eb8dab63e\",\"layouts\":[{\"id\":0,\"position\":{\"x\":141.33838087740165,\"y\":212.6936799611384,\"z\":2000,\"width\":681.9919931657147,\"height\":255.23241595336606,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"clusteredColumnChart\",\"projections\":{\"Series\":[{\"queryRef\":\"Ventas.TipoPromocion\"}],\"Y\":[{\"queryRef\":\"Ventas.TotalVentas\"}],\"Category\":[{\"queryRef\":\"Ventas.MesNum\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"Ventas\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"TipoPromocion\"},\"Name\":\"Ventas.TipoPromocion\",\"NativeReferenceName\":\"TipoPromocion\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"TotalVentas\"},\"Name\":\"Ventas.TotalVentas\",\"NativeReferenceName\":\"Ventas\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"MesNum\"},\"Name\":\"Ventas.MesNum\",\"NativeReferenceName\":\"Mes\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"TotalVentas\"}}}]},\"columnProperties\":{\"Ventas.MesNum\":{\"displayName\":\"Mes\"},\"Ventas.TotalVentas\":{\"displayName\":\"Ventas\"}},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true,\"objects\":{\"dataPoint\":[{\"properties\":{\"fill\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":6,\"Percent\":-0.25}}}}}},\"selector\":{\"data\":[{\"scopeId\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Ventas\"}},\"Property\":\"TipoPromocion\"}},\"Right\":{\"Literal\":{\"Value\":\"'Con Promoción'\"}}}}}]}},{\"properties\":{\"fill\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":5,\"Percent\":0.6}}}}}},\"selector\":{\"data\":[{\"scopeId\":{\"Comparison\":{\"ComparisonKind\":0,\"Left\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"Ventas\"}},\"Property\":\"TipoPromocion\"}},\"Right\":{\"Literal\":{\"Value\":\"'Sin Promoción'\"}}}}}]}}],\"legend\":[{\"properties\":{\"labelColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":-0.1}}}}}}}]},\"vcObjects\":{\"background\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":1,\"Percent\":0}}}}}}}],\"title\":[{\"properties\":{\"fontColor\":{\"solid\":{\"color\":{\"expr\":{\"ThemeDataColor\":{\"ColorId\":0,\"Percent\":0}}}}}}}]}}}",
+          "filters": "[]",
+          "height": 255.23,
+          "width": 681.99,
+          "x": 141.34,
+          "y": 212.69,
+          "z": 2000.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ]
+}

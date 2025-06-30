@@ -1,0 +1,74 @@
+table ComprasIngredientes
+	lineageTag: 4d2d5818-0779-4bce-b621-dfc681fa86ec
+
+	column id_compra
+		dataType: int64
+		formatString: 0
+		lineageTag: cf1f5320-8707-4882-a54f-e590f91a8976
+		summarizeBy: sum
+		sourceColumn: id_compra
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f8edbfda-fdcf-4748-a0be-e3d5f2af0f7e
+		summarizeBy: none
+		sourceColumn: fecha
+
+		variation Variación
+			isDefault
+			relationship: ec240d37-7a38-43ca-b677-ea497054376a
+			defaultHierarchy: LocalDateTable_3e586775-e893-4460-ba4d-46ffef11c34a.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column id_ingrediente
+		dataType: int64
+		formatString: 0
+		lineageTag: 9761a60a-2305-4388-a5bf-984eb754b73a
+		summarizeBy: none
+		sourceColumn: id_ingrediente
+
+		annotation SummarizationSetBy = Automatic
+
+	column cantidad_comprada
+		dataType: double
+		lineageTag: 448c5b1f-084f-4796-ac53-1f5119e1e409
+		summarizeBy: sum
+		sourceColumn: cantidad_comprada
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Mes
+		dataType: int64
+		formatString: 0
+		lineageTag: cc0bc735-adaf-4ea7-8641-592fa8b8e1f0
+		summarizeBy: sum
+		sourceColumn: Mes
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ComprasIngredientes = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("D:\Escritorio\BI\Proyecto-final-BI\Datos_Restaurante_Ejemplo_6meses.xlsx"), null, true),
+				    ComprasIngredientes_Sheet = Origen{[Item="ComprasIngredientes",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(ComprasIngredientes_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"id_compra", Int64.Type}, {"fecha", type any}, {"id_ingrediente", Int64.Type}, {"cantidad_comprada", type number}}),
+				    #"Filas en blanco eliminadas" = Table.SelectRows(#"Tipo cambiado", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Filas en blanco eliminadas",{{"fecha", type date}}),
+				    #"Mes insertado" = Table.AddColumn(#"Tipo cambiado1", "Mes", each Date.Month([fecha]), Int64.Type)
+				in
+				    #"Mes insertado"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

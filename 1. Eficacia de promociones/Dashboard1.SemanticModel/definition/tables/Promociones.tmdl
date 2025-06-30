@@ -1,0 +1,86 @@
+table Promociones
+	lineageTag: db8cb281-796c-45da-b1ee-9953ff9030b6
+
+	column id_promocion
+		dataType: int64
+		formatString: 0
+		lineageTag: 76f9de78-d2dc-4109-ad71-72e9850dd616
+		summarizeBy: none
+		sourceColumn: id_promocion
+
+		annotation SummarizationSetBy = Automatic
+
+	column nombre_promocion
+		dataType: string
+		lineageTag: 5cd08519-a38e-404b-a47e-9cabdd00e389
+		summarizeBy: none
+		sourceColumn: nombre_promocion
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo
+		dataType: string
+		lineageTag: 0692d4d6-3a9f-4806-b24e-51abf513f596
+		summarizeBy: none
+		sourceColumn: tipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column descuento_pct
+		dataType: int64
+		formatString: 0
+		lineageTag: cc4378f7-fc9a-40f9-8460-f9cfdf35463b
+		summarizeBy: sum
+		sourceColumn: descuento_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column fecha_inicio
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d8b66c0f-8d38-4707-96d6-bdc8fc75e0a7
+		summarizeBy: none
+		sourceColumn: fecha_inicio
+
+		variation Variación
+			isDefault
+			relationship: 3f92ed68-9dce-4cc2-86ac-9d46ec5409eb
+			defaultHierarchy: LocalDateTable_5c1544f6-8921-46de-9798-952eba7bc915.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column fecha_fin
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7ce33ff2-ed30-43c5-b0d9-ed277aa082a0
+		summarizeBy: none
+		sourceColumn: fecha_fin
+
+		variation Variación
+			isDefault
+			relationship: 7d166b7b-7f43-4d11-ba91-3b0bef9c4de3
+			defaultHierarchy: LocalDateTable_d6cab7cb-b377-4e2d-9047-00994894efe4.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition Promociones = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("D:\Escritorio\BI\Proyecto-final-BI\Datos_Restaurante_Ejemplo_6meses.xlsx"), null, true),
+				    Promociones_Sheet = Origen{[Item="Promociones",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Promociones_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"id_promocion", Int64.Type}, {"nombre_promocion", type text}, {"tipo", type text}, {"descuento_pct", Int64.Type}, {"fecha_inicio", type datetime}, {"fecha_fin", type datetime}}),
+				    #"Filas en blanco eliminadas" = Table.SelectRows(#"Tipo cambiado", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Filas en blanco eliminadas",{{"fecha_inicio", type date}, {"fecha_fin", type date}})
+				in
+				    #"Tipo cambiado1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

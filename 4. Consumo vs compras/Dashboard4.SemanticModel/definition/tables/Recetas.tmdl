@@ -1,0 +1,47 @@
+table Recetas
+	lineageTag: a290cb61-661c-4566-a8e8-e7ada9be027b
+
+	column id_platillo
+		dataType: int64
+		formatString: 0
+		lineageTag: 28a27dba-69cc-4974-9508-f3357e756a7e
+		summarizeBy: none
+		sourceColumn: id_platillo
+
+		annotation SummarizationSetBy = Automatic
+
+	column id_ingrediente
+		dataType: int64
+		formatString: 0
+		lineageTag: bed3ecec-bb88-42ea-9b96-2e9f11446f7d
+		summarizeBy: none
+		sourceColumn: id_ingrediente
+
+		annotation SummarizationSetBy = Automatic
+
+	column cantidad_usada
+		dataType: double
+		lineageTag: 5df68bdd-d877-4b64-8217-50bc505e8ece
+		summarizeBy: sum
+		sourceColumn: cantidad_usada
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Recetas = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("D:\Escritorio\BI\Proyecto-final-BI\Datos_Restaurante_Ejemplo_6meses.xlsx"), null, true),
+				    Recetas_Sheet = Origen{[Item="Recetas",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Recetas_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"id_platillo", Int64.Type}, {"id_ingrediente", Int64.Type}, {"cantidad_usada", type number}}),
+				    #"Filas en blanco eliminadas" = Table.SelectRows(#"Tipo cambiado", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null})))
+				in
+				    #"Filas en blanco eliminadas"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

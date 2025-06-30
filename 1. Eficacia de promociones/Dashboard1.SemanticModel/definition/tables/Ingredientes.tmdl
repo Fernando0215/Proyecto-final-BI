@@ -1,0 +1,54 @@
+table Ingredientes
+	lineageTag: 583b314d-965d-4ed1-905e-6c8fbcab2703
+
+	column id_ingrediente
+		dataType: int64
+		formatString: 0
+		lineageTag: c8cd50ec-06d1-4e02-87d1-2120047b37a1
+		summarizeBy: none
+		sourceColumn: id_ingrediente
+
+		annotation SummarizationSetBy = Automatic
+
+	column nombre_ingrediente
+		dataType: string
+		lineageTag: 36c935fe-6fa8-4125-b13b-8144d52acbb7
+		summarizeBy: none
+		sourceColumn: nombre_ingrediente
+
+		annotation SummarizationSetBy = Automatic
+
+	column unidad_medida
+		dataType: string
+		lineageTag: 31644421-f014-48ad-963a-a8043b7660c9
+		summarizeBy: none
+		sourceColumn: unidad_medida
+
+		annotation SummarizationSetBy = Automatic
+
+	column costo_unitario
+		dataType: double
+		lineageTag: a18aa3c2-16ac-4a10-a95f-afd0fb7dc15a
+		summarizeBy: sum
+		sourceColumn: costo_unitario
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition Ingredientes = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("D:\Escritorio\BI\Proyecto-final-BI\Datos_Restaurante_Ejemplo_6meses.xlsx"), null, true),
+				    Ingredientes_Sheet = Origen{[Item="Ingredientes",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Ingredientes_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"id_ingrediente", Int64.Type}, {"nombre_ingrediente", type text}, {"unidad_medida", type text}, {"costo_unitario", type number}}),
+				    #"Filas en blanco eliminadas" = Table.SelectRows(#"Tipo cambiado", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null})))
+				in
+				    #"Filas en blanco eliminadas"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegación
+

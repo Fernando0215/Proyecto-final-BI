@@ -1,0 +1,70 @@
+relationship 729d56ba-1494-4724-a8e7-bd06a8864f4e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: QuejasYReseñas.fecha
+	toColumn: LocalDateTable_f8450f4d-0530-47bd-bf46-f6fd4a7705f7.Date
+
+relationship 3f92ed68-9dce-4cc2-86ac-9d46ec5409eb
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Promociones.fecha_inicio
+	toColumn: LocalDateTable_5c1544f6-8921-46de-9798-952eba7bc915.Date
+
+relationship 7d166b7b-7f43-4d11-ba91-3b0bef9c4de3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Promociones.fecha_fin
+	toColumn: LocalDateTable_d6cab7cb-b377-4e2d-9047-00994894efe4.Date
+
+relationship 80d177bd-2703-49f8-b106-ce77c1567431
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Ventas.fecha
+	toColumn: LocalDateTable_2c68da58-cc9d-472b-b922-bd9c89255ae3.Date
+
+relationship bdf21068-a782-4f40-90c7-07c8f5bd542a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: CostosOperacion.fecha
+	toColumn: LocalDateTable_c3f48816-cd5f-4964-aff5-0e928ba4a9fa.Date
+
+relationship ec240d37-7a38-43ca-b677-ea497054376a
+	joinOnDateBehavior: datePartOnly
+	fromColumn: ComprasIngredientes.fecha
+	toColumn: LocalDateTable_3e586775-e893-4460-ba4d-46ffef11c34a.Date
+
+relationship e838fa0e-8dfe-9356-f4a1-5c350f5f682a
+	fromColumn: ComprasIngredientes.id_ingrediente
+	toColumn: Ingredientes.id_ingrediente
+
+relationship 01af797f-58cc-c335-eb4a-333aa4438990
+	fromColumn: Recetas.id_ingrediente
+	toColumn: Ingredientes.id_ingrediente
+
+relationship 19e20896-3600-dbea-4a52-68bc4d2b6eed
+	fromColumn: Recetas.id_platillo
+	toColumn: Platillos.id_platillo
+
+relationship 8773d598-b486-5c6f-f277-75e2cb4eb383
+	fromColumn: DetallesVenta.id_platillo
+	toColumn: Platillos.id_platillo
+
+relationship e73df886-db2d-02d4-adc0-99c65bf957b4
+	fromColumn: DetallesVenta.id_venta
+	toColumn: Ventas.id_venta
+
+relationship d724696b-eeab-dfea-099f-66b485068781
+	fromColumn: Ventas.id_cliente
+	toColumn: Clientes.id_cliente
+
+relationship abd92483-d202-2dcf-62a8-5d8ebe9718e1
+	fromColumn: QuejasYReseñas.id_cliente
+	toColumn: Clientes.id_cliente
+
+relationship 510b8757-5047-b86c-48e7-9ad6a9a48715
+	fromColumn: QuejasYReseñas.id_sucursal
+	toColumn: Sucursales.id_sucursal
+
+relationship b2186e97-428b-1363-803d-0b5c5ef8c560
+	fromColumn: Ventas.id_sucursal
+	toColumn: Sucursales.id_sucursal
+
+relationship a69f5472-e779-bee4-3fe6-fa4cf4f0cc12
+	fromColumn: Ventas.id_promocion
+	toColumn: Promociones.id_promocion
+
